@@ -6,9 +6,9 @@ This extension is now published and supported under the name
 [workspace-explorer](https://marketplace.visualstudio.com/items?itemName=tomsaunders-code.workspace-explorer). If you have **vscode-workspace-explorer** please
 install this version instead, as **vscode-workspace-explorer** is no longer supported.
 
-## Release 2.4.0
+## Release 2.4.1
 
-This is a modernization update. The extension is now migrated to TypeScript, and it uses current versions of its dependencies. It also includes a long awaited fix for the popup loop when the workspace directory is not set. Lastly, folder and workspaces are now sorted in the explorer and command palette with case-insensitivity. See full release at bottom or in CHANGELOG.md.
+This release lowers the minimum version of VSCode required to use the extension to 1.105.1. At the time of publish this is the version that code editors like Cursor require.
 
 # Introduction
 
@@ -245,6 +245,10 @@ for more information.
 ```
 
 # Release Notes
+
+## 2.4.1
+
+- lower required version of VSCode to support Cursor (1.105.1)
 
 ## 2.4.0
 

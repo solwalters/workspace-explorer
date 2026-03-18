@@ -2,6 +2,10 @@
 
 All notable changes to the "workspace-explorer" extension will be documented in this file.
 
+## 2.4.1
+
+- lower required version of VSCode to support Cursor (1.105.1)
+
 ## 2.4.0
 
 - Sorting of folders and workspaces in both explorer and command palette is now case-insensitive
