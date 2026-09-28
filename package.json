@@ -103,7 +103,7 @@
       {
         "title": "Open Indicator",
         "properties": {
-          "workspaceExplorer.showOpenIndicator": {
+          "workspaceExplorer._ShowOpenIndicator": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Show an indicator next to workspaces that are currently open in a VS Code window."
