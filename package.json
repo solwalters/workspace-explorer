@@ -99,6 +99,46 @@
             "markdownDescription": "What the inline button on workspace items does. Set to `none` to hide it."
           }
         }
+      },
+      {
+        "title": "Open Indicator",
+        "properties": {
+          "workspaceExplorer.showOpenIndicator": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Show an indicator next to workspaces that are currently open in a VS Code window."
+          },
+          "workspaceExplorer.openIndicatorIconEnabled": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Replace the file icon of open workspaces with a status icon."
+          },
+          "workspaceExplorer.currentWorkspaceIcon": {
+            "type": "string",
+            "default": "arrow-circle-right",
+            "markdownDescription": "Codicon ID for the current workspace. See [Codicon Reference](https://microsoft.github.io/vscode-codicons/dist/codicon.html)."
+          },
+          "workspaceExplorer.openWorkspaceIcon": {
+            "type": "string",
+            "default": "circle-large-outline",
+            "markdownDescription": "Codicon ID for workspaces open in other windows. See [Codicon Reference](https://microsoft.github.io/vscode-codicons/dist/codicon.html)."
+          },
+          "workspaceExplorer.openIndicatorColorEnabled": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Tint the label text of open workspaces with a color."
+          },
+          "workspaceExplorer.currentWorkspaceColor": {
+            "type": "string",
+            "default": "charts.green",
+            "markdownDescription": "ThemeColor ID used for the current workspace (icon and label). See [Theme Color Reference](https://code.visualstudio.com/api/references/theme-color)."
+          },
+          "workspaceExplorer.openWorkspaceColor": {
+            "type": "string",
+            "default": "charts.blue",
+            "markdownDescription": "ThemeColor ID used for workspaces open in other windows (icon and label). See [Theme Color Reference](https://code.visualstudio.com/api/references/theme-color)."
+          }
+        }
       }
     ],
     "viewsContainers": {

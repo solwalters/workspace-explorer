@@ -11,6 +11,8 @@ import vscode from "vscode";
 
 import WorkspaceTreeDataProvider from "./workspaceTreeDataProvider";
 import WorkspaceTreeItem from "./workspaceTreeItem";
+import OpenWorkspaceTracker from "./openWorkspaceTracker";
+import OpenWorkspaceDecorationProvider from "./openWorkspaceDecorationProvider";
 import changeIcon from "./changeIcon";
 import addSubFolder from "./addSubFolder";
 import deleteFolder from "./deleteFolder";
@@ -18,6 +20,8 @@ import createWorkspace from "./createWorkspace";
 import deleteWorkspace from "./deleteWorkspace";
 import renameTreeItem from "./renameTreeItem";
 import { selectWorkspace } from "./openWorkspaceWithPalette";
+
+let activeTracker: OpenWorkspaceTracker | undefined;
 
 // Click commands receive a string path; inline button commands receive a TreeItem.
 function resolveWorkspacePath(
@@ -31,9 +35,23 @@ function resolveWorkspacePath(
 // Activates the Extension when the Explorer view-container is open
 // and the workspace explorer is expanded.
 export async function activate(context: vscode.ExtensionContext) {
+  // Track which workspaces are open across VS Code windows
+  const tracker = new OpenWorkspaceTracker(context.globalState);
+  activeTracker = tracker;
+  const currentWorkspace = vscode.workspace.workspaceFile;
+  if (currentWorkspace) {
+    tracker.register(currentWorkspace.fsPath);
+  }
+
+  const decorationProvider = new OpenWorkspaceDecorationProvider(tracker);
+  context.subscriptions.push(
+    vscode.window.registerFileDecorationProvider(decorationProvider),
+  );
+
   // Setup tree data structure
   const explorerTreeDataProvider = new WorkspaceTreeDataProvider({
     isForExplorer: true,
+    openWorkspaceTracker: tracker,
   });
   const quickPickNewWindowTreeDataProvider = new WorkspaceTreeDataProvider({
     workspaceIcon: "multiple-windows",
@@ -169,6 +187,15 @@ export async function activate(context: vscode.ExtensionContext) {
         explorerTreeDataProvider.refresh();
         quickPickNewWindowTreeDataProvider.refresh();
         quickPickSameWindowTreeDataProvider.refresh();
+        decorationProvider.fire(undefined);
+      }
+    });
+
+    // Refresh open-workspace indicators when this window gains focus
+    vscode.window.onDidChangeWindowState((e) => {
+      if (e.focused) {
+        explorerTreeDataProvider.refresh();
+        decorationProvider.fire(undefined);
       }
     });
 
@@ -271,5 +298,6 @@ export async function activate(context: vscode.ExtensionContext) {
   }
 }
 
-// This method is called when the extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+  activeTracker?.unregister();
+}

@@ -15,6 +15,13 @@ export interface ResolvedExtensionConfig {
   workspaceStorageDirectory: string;
   clickAction: ClickAction;
   buttonAction: ClickAction;
+  showOpenIndicator: boolean;
+  openIndicatorColorEnabled: boolean;
+  openIndicatorIconEnabled: boolean;
+  currentWorkspaceColor: string;
+  openWorkspaceColor: string;
+  currentWorkspaceIcon: string;
+  openWorkspaceIcon: string;
 }
 
 let isShowingConfigPrompt = false;
@@ -170,6 +177,21 @@ export default async function (
   const buttonAction: ClickAction =
     extensionConfig.get<ClickAction>("buttonAction") ?? "newWindow";
 
+  const showOpenIndicator: boolean =
+    extensionConfig.get<boolean>("showOpenIndicator") ?? true;
+  const openIndicatorColorEnabled: boolean =
+    extensionConfig.get<boolean>("openIndicatorColorEnabled") ?? true;
+  const openIndicatorIconEnabled: boolean =
+    extensionConfig.get<boolean>("openIndicatorIconEnabled") ?? true;
+  const currentWorkspaceColor: string =
+    extensionConfig.get<string>("currentWorkspaceColor") ?? "charts.green";
+  const openWorkspaceColor: string =
+    extensionConfig.get<string>("openWorkspaceColor") ?? "charts.blue";
+  const currentWorkspaceIcon: string =
+    extensionConfig.get<string>("currentWorkspaceIcon") ?? "arrow-circle-right";
+  const openWorkspaceIcon: string =
+    extensionConfig.get<string>("openWorkspaceIcon") ?? "circle-large-outline";
+
   const resolvedConfig: ResolvedExtensionConfig = {
     enableCustomIconSearch: extensionConfig.enableCustomIconSearch,
     additionalCustomIconDirectory:
@@ -177,6 +199,13 @@ export default async function (
     workspaceStorageDirectory,
     clickAction,
     buttonAction,
+    showOpenIndicator,
+    openIndicatorColorEnabled,
+    openIndicatorIconEnabled,
+    currentWorkspaceColor,
+    openWorkspaceColor,
+    currentWorkspaceIcon,
+    openWorkspaceIcon,
   };
   if (
     extensionConfig.enableCustomIconSearch === true &&

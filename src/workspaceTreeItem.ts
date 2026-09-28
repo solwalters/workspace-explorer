@@ -114,6 +114,8 @@ export default class WorkspaceTreeItem extends vscode.TreeItem {
     extensionConfig: ResolvedExtensionConfig | undefined,
     useNewUri: boolean,
     useTooltip: boolean = true,
+    isOpen: boolean = false,
+    isCurrent: boolean = false,
   ) {
     super(label, collapsibleState);
     this.workspaceFileNameAndFilePath = workspaceFileNameAndFilePath;
@@ -161,6 +163,33 @@ export default class WorkspaceTreeItem extends vscode.TreeItem {
       this.tooltipLabel = newWindow
         ? `Click to open ${this.label} workspace in a new window.`
         : `Click to open ${this.label} workspace in this window.`;
+    }
+
+    // FileDecorationProvider needs resourceUri to target this item
+    if (!isFolder) {
+      this.resourceUri = vscode.Uri.file(workspaceFileNameAndFilePath);
+    }
+
+    if (isCurrent) {
+      if (extensionConfig?.openIndicatorIconEnabled !== false) {
+        this.iconPath = new vscode.ThemeIcon(
+          extensionConfig?.currentWorkspaceIcon ?? "arrow-circle-right",
+          new vscode.ThemeColor(
+            extensionConfig?.currentWorkspaceColor ?? "charts.green",
+          ),
+        );
+      }
+      this.description = "(Current)";
+    } else if (isOpen) {
+      if (extensionConfig?.openIndicatorIconEnabled !== false) {
+        this.iconPath = new vscode.ThemeIcon(
+          extensionConfig?.openWorkspaceIcon ?? "circle-large-outline",
+          new vscode.ThemeColor(
+            extensionConfig?.openWorkspaceColor ?? "charts.blue",
+          ),
+        );
+      }
+      this.description = "(Open)";
     }
 
     if (useTooltip) {
