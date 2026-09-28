@@ -211,6 +211,26 @@ Workspace Explorer contributes the following settings:
 
   What the inline button on workspace items does. Options: `newWindow` (default), `sameWindow`, or `none` (hides the button).
 
+- `workspaceExplorer.showOpenIndicator`
+
+  Show an indicator next to workspaces that are currently open in a VS Code window. Default: `true`.
+
+- `workspaceExplorer.openIndicatorIconEnabled`
+
+  Replace the file icon of open workspaces with a status icon (codicon). Default: `true`.
+
+- `workspaceExplorer.currentWorkspaceIcon` / `workspaceExplorer.openWorkspaceIcon`
+
+  Codicon IDs for the current workspace and workspaces open in other windows. Defaults: `arrow-circle-right` and `circle-large-outline`.
+
+- `workspaceExplorer.openIndicatorColorEnabled`
+
+  Tint the label text of open workspaces with a color. Default: `true`.
+
+- `workspaceExplorer.currentWorkspaceColor` / `workspaceExplorer.openWorkspaceColor`
+
+  ThemeColor IDs for the current workspace and workspaces open in other windows. Defaults: `charts.green` and `charts.blue`.
+
 ## Using Variables in Config Paths
 
 **Workspace Explorer** supports environment variables in your workspace
@@ -258,7 +278,10 @@ for more information.
 
 - Configurable click behavior: choose what happens when you click a workspace (`newWindow`, `sameWindow`, or `none`)
 - Configurable inline button action: choose which command the inline button runs, or hide it entirely
-- Settings are now grouped into sections (Storage & Icons, Click Behavior) in the VS Code settings UI
+- Open workspace indicator: see which workspaces are open across VS Code windows with colored icons and labels
+- Customizable indicator icons (codicons) and colors (ThemeColors) for current and open workspaces
+- Cross-window workspace tracking using `globalState` with PID-based liveness checks
+- Settings are now grouped into sections (Storage & Icons, Click Behavior, Open Indicator) in the VS Code settings UI
 
 ## 2.4.1
 
