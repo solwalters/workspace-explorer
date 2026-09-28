@@ -62,6 +62,36 @@
           "type": "string",
           "default": "",
           "markdownDescription": "Give Workspace Explorer an additional search directory for .svg and .png files with the same name as your workspaces and folders. Then use those as icons in the Workspace Explorer. Workspace Explorer will first look in the Workspace Storage Directory and then will look in the Additional Custom Icon Directory. Ex: C:\\Users\\appuser\\icons"
+        },
+        "workspaceExplorer.clickAction": {
+          "type": "string",
+          "enum": [
+            "newWindow",
+            "sameWindow",
+            "none"
+          ],
+          "enumDescriptions": [
+            "Open the workspace in a new VS Code window",
+            "Open the workspace in the current window (replaces it)",
+            "Disable click-to-open (clicking only selects the item)"
+          ],
+          "default": "sameWindow",
+          "markdownDescription": "What happens when you click a workspace name in the tree view."
+        },
+        "workspaceExplorer.buttonAction": {
+          "type": "string",
+          "enum": [
+            "newWindow",
+            "sameWindow",
+            "none"
+          ],
+          "enumDescriptions": [
+            "Show a button that opens the workspace in a new window",
+            "Show a button that opens the workspace in the current window",
+            "Hide the inline button"
+          ],
+          "default": "newWindow",
+          "markdownDescription": "What the inline button on workspace items does. Set to `none` to hide it."
         }
       }
     },
@@ -95,7 +125,8 @@
       },
       {
         "command": "workspaceExplorer.openWorkspaceInSameWindow",
-        "title": "Open Workspace in Same Window"
+        "title": "Open Workspace in Same Window",
+        "icon": "$(window)"
       },
       {
         "command": "workspaceExplorer.openWorkspaceInNewWindowQuickPick",
@@ -162,7 +193,12 @@
       "view/item/context": [
         {
           "command": "workspaceExplorer.openWorkspaceInNewWindow",
-          "when": "view == workspaceExplorer && viewItem == workspaceFile",
+          "when": "view == workspaceExplorer && viewItem == workspaceFile && config.workspaceExplorer.buttonAction == 'newWindow'",
+          "group": "inline"
+        },
+        {
+          "command": "workspaceExplorer.openWorkspaceInSameWindow",
+          "when": "view == workspaceExplorer && viewItem == workspaceFile && config.workspaceExplorer.buttonAction == 'sameWindow'",
           "group": "inline"
         },
         {
