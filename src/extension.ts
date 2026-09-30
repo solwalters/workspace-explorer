@@ -36,7 +36,7 @@ function resolveWorkspacePath(
 // and the workspace explorer is expanded.
 export async function activate(context: vscode.ExtensionContext) {
   // Track which workspaces are open across VS Code windows
-  const tracker = new OpenWorkspaceTracker(context.globalState);
+  const tracker = new OpenWorkspaceTracker(context.globalStorageUri);
   activeTracker = tracker;
   const currentWorkspace = vscode.workspace.workspaceFile;
   if (currentWorkspace) {
